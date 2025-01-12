@@ -3,6 +3,7 @@ package com.example.weatherapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import com.example.weatherapp.databinding.ActivityMainBinding
@@ -17,8 +18,8 @@ import java.util.Date
 import java.util.Locale
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import android.content.Context
 
-//7479ab49e6129e42c52533f454ceed6e
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -39,6 +40,8 @@ class MainActivity : AppCompatActivity() {
                 if (query != null) {
                     fetchData(query) // Call fetchData with the query
                 }
+                hideKeyboard()
+                searchView.clearFocus()
                 return true
             }
 
@@ -183,6 +186,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.lottieAnimationView.playAnimation()
+    }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val view = currentFocus
+        if (view != null) {
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
     fun setCurrentDayAndDate() {
