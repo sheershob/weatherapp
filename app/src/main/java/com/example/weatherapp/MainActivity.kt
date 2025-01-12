@@ -19,12 +19,19 @@ import java.util.Locale
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import android.content.Context
+import android.widget.AutoCompleteTextView
+import retrofit2.http.GET
+import retrofit2.http.Header
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
 
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+    private lateinit var searchView: AutoCompleteTextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
